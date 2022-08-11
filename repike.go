@@ -1,5 +1,4 @@
-// Package repike implements Rob Pike's simple C regex matcher in Go. See
-// https://benhoyt.com/writings/rob-pike-regex/
+// Package repike implements Rob Pike's simple C regex matcher in Go.
 package repike
 
 // Match reports whether regexp matches anywhere in text.
