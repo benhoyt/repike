@@ -3,7 +3,7 @@ package repike
 
 // Match reports whether regexp matches anywhere in text.
 func Match(regexp, text string) bool {
-	if len(regexp) > 0 && regexp[0] == '^' {
+	if regexp != "" && regexp[0] == '^' {
 		return matchHere(regexp[1:], text)
 	}
 	for {
@@ -11,25 +11,22 @@ func Match(regexp, text string) bool {
 			return true
 		}
 		if text == "" {
-			break
+			return false
 		}
 		text = text[1:]
 	}
-	return false
 }
 
 // matchHere reports whether regexp matches at beginning of text.
 func matchHere(regexp, text string) bool {
-	if regexp == "" {
+	switch {
+	case regexp == "":
 		return true
-	}
-	if len(regexp) > 1 && regexp[1] == '*' {
-		return matchStar(regexp[0], regexp[2:], text)
-	}
-	if regexp == "$" {
+	case regexp == "$":
 		return text == ""
-	}
-	if text != "" && (regexp[0] == '.' || regexp[0] == text[0]) {
+	case len(regexp) >= 2 && regexp[1] == '*':
+		return matchStar(regexp[0], regexp[2:], text)
+	case text != "" && (regexp[0] == '.' || regexp[0] == text[0]):
 		return matchHere(regexp[1:], text[1:])
 	}
 	return false
@@ -41,10 +38,9 @@ func matchStar(c byte, regexp, text string) bool {
 		if matchHere(regexp, text) {
 			return true
 		}
-		if !(text != "" && (text[0] == c || c == '.')) {
-			break
+		if text == "" || (text[0] != c && c != '.') {
+			return false
 		}
 		text = text[1:]
 	}
-	return false
 }
