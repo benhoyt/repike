@@ -123,7 +123,7 @@ func TestMatch(t *testing.T) {
 	haveC := err == nil // does the compiled C version exist?
 
 	for _, test := range tests {
-		// Ensure repike.Match passes.
+		// Ensure Go matcher passes
 		t.Run(test.name+"/repike", func(t *testing.T) {
 			matched := repike.Match(test.re, test.text)
 			if matched != test.matched {
