@@ -23,4 +23,5 @@ jobs:
     - name: Run Tests
       run: |
         gcc -O2 cmd/matchc/match.c -o matchc
+        go build ./cmd/matchgo
         go test -v

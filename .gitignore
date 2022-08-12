@@ -1,2 +1,4 @@
-matchc
-matchgo
+/matchc
+/matchgo
+pg10*.txt
+out.txt
