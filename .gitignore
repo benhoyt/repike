@@ -1,4 +1,5 @@
 /matchc
 /matchgo
+/matchgoregexp
 pg10*.txt
 out.txt

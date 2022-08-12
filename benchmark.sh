@@ -13,6 +13,7 @@ fi
 # Build C and Go matchers.
 gcc -O2 cmd/matchc/match.c -o matchc
 go build ./cmd/matchgo
+go build ./cmd/matchgoregexp
 
 # Time them all.
 export TIMEFORMAT='%R'
@@ -39,3 +40,11 @@ time ./matchgo 'Ben.*H' <pg10_x100.txt >out.txt
 time ./matchgo 'Ben.*H' <pg10_x100.txt >out.txt
 time ./matchgo 'Ben.*H' <pg10_x100.txt >out.txt
 time ./matchgo 'Ben.*H' <pg10_x100.txt >out.txt
+
+echo
+echo Go regexp
+time ./matchgoregexp 'Ben.*H' <pg10_x100.txt >out.txt
+time ./matchgoregexp 'Ben.*H' <pg10_x100.txt >out.txt
+time ./matchgoregexp 'Ben.*H' <pg10_x100.txt >out.txt
+time ./matchgoregexp 'Ben.*H' <pg10_x100.txt >out.txt
+time ./matchgoregexp 'Ben.*H' <pg10_x100.txt >out.txt
