@@ -119,8 +119,8 @@ var tests = []test{
 }
 
 func TestMatch(t *testing.T) {
-	_, err := os.Stat("./match")
-	haveC := err == nil
+	_, err := os.Stat("./matchc")
+	haveC := err == nil // does the compiled C version exist?
 
 	for _, test := range tests {
 		// Ensure repike.Match passes.
@@ -144,8 +144,8 @@ func TestMatch(t *testing.T) {
 
 		// Ensure test passes using original C matcher.
 		if haveC {
-			t.Run(test.name+"/origc", func(t *testing.T) {
-				cmd := exec.Command("./match", test.re)
+			t.Run(test.name+"/matchc", func(t *testing.T) {
+				cmd := exec.Command("./matchc", test.re)
 				cmd.Stdin = strings.NewReader(test.text + "\n")
 				err := cmd.Run()
 				matched := false
