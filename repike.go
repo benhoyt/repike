@@ -6,15 +6,12 @@ func Match(regexp, text string) bool {
 	if regexp != "" && regexp[0] == '^' {
 		return matchHere(regexp[1:], text)
 	}
-	for {
+	for ; text != ""; text = text[1:] {
 		if matchHere(regexp, text) {
 			return true
 		}
-		if text == "" {
-			return false
-		}
-		text = text[1:]
 	}
+	return matchHere(regexp, text) /* must look even if string is empty */
 }
 
 // matchHere reports whether regexp matches at beginning of text.
@@ -34,13 +31,10 @@ func matchHere(regexp, text string) bool {
 
 // matchStar reports whether c*regexp matches at beginning of text.
 func matchStar(c byte, regexp, text string) bool {
-	for {
+	for ; text != "" && (text[0] == c || c == '.'); text = text[1:] {
 		if matchHere(regexp, text) {
 			return true
 		}
-		if text == "" || (text[0] != c && c != '.') {
-			return false
-		}
-		text = text[1:]
 	}
+	return matchHere(regexp, text) /* must look even if string is empty */
 }
